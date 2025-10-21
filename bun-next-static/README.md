@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Bun + Next.js Static Blog (MDX)
 
-## Getting Started
+Static blog boilerplate using Next.js App Router, MDX content, and static export (SSG). Optimized for Bun, but npm/pnpm/yarn work too.
 
-First, run the development server:
+### Features
+- MDX posts with YAML frontmatter (`title`, `date`, `excerpt`)
+- SSG via `generateStaticParams` and `output: "export"`
+- Local MDX imports with custom MDX elements (`mdx-components.tsx`)
+- Zero server runtime; deploy as static files from `out/`
 
+### Commands
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun run dev     # Start dev server (Turbopack)
+bun run lint    # ESLint
+bun run build   # Build + static export to out/
+bun run serve   # Serve the exported site from out/
 ```
+Equivalents: `npm run <script>` / `pnpm run <script>`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Project Structure
+- `app/` — routes and layouts (`/blog`, `/blog/[slug]`)
+- `content/posts/*.mdx` — blog posts
+- `lib/mdx.ts` — load MDX files, read frontmatter (gray-matter)
+- `mdx-components.tsx` — MDX element mappings (e.g., headings, links)
+- `next.config.ts` — MDX enabled via `@next/mdx`, static export on
+- Build artifacts: `.next/`, static output: `out/`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Add a New Post
+Create `content/posts/my-new-post.mdx`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```mdx
+---
+title: My New Post
+date: 2025-01-20
+excerpt: Short summary.
+---
 
-## Learn More
+# Hello from MDX
 
-To learn more about Next.js, take a look at the following resources:
+Content goes here. You can use Markdown and inline JSX if needed.
+```
+Slug = file name (`my-new-post`). The blog index reads metadata; the post page dynamically imports the MDX component.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Build & Deploy
+1) `bun run build` → exports to `out/`
+2) Serve locally: `bun run serve`
+3) Deploy `out/` to any static host (e.g., GitHub Pages, Netlify, S3)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Notes
+- Frontmatter is parsed with `gray-matter` for metadata and is ignored in rendered content via `remark-frontmatter`.
+- Avoid server-only APIs; use static-compatible features for SSG.
