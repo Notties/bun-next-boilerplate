@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "Switch": {
+    "en": "EN",
+    "th": "TH"
+  },
+  "Nav": {
+    "home": "Home",
+    "blog": "Blog"
+  }
+}

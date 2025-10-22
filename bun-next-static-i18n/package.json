@@ -1,5 +1,5 @@
 {
-  "name": "bun-next-static",
+  "name": "bun-next-static-i18n",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,23 +13,28 @@
     "@mdx-js/react": "^3",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.546.0",
-    "next": "15.5.6",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "next": "16.0.0",
+    "next-intl": "^4.3.12",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   },
   "devDependencies": {
     "typescript": "^5",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "15.5.6",
+    "eslint-config-next": "16.0.0",
     "@eslint/eslintrc": "^3",
-    "@next/mdx": "^15",
+    "@next/mdx": "16.0.0",
     "@mdx-js/loader": "^3",
     "@types/mdx": "^2",
     "remark-frontmatter": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2"
   }
 }
